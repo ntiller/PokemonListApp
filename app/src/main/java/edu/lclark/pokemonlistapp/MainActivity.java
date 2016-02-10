@@ -2,13 +2,16 @@ package edu.lclark.pokemonlistapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    PokemonListAdapter mAdapter;
+    PokemonArrayAdapter mAdapter;
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +23,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Pokedex pokedex = new Pokedex();
 
-        mAdapter = new PokemonListAdapter(this, pokedex.getPokemons());
+        mAdapter = new PokemonArrayAdapter(this, R.layout.row_pokemon, pokedex.getPokemons());
 
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(this);
+
+
+
 
     }
 
@@ -32,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         mAdapter.removePokemon(position);
+        Log.d(TAG, "onItemClick(): Removed pokemon at position: " + position);
+
         mAdapter.notifyDataSetChanged();
     }
 }

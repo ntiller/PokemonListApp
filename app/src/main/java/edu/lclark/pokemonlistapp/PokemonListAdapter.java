@@ -34,7 +34,7 @@ public class PokemonListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mPokemons.get(position);
     }
 
     @Override
