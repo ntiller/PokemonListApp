@@ -21,6 +21,10 @@ public class Pokemon {
         mWeight = split[4];
     }
 
+    public String getImageUrl() {
+        return "http://img.pokemondb.net/artwork/" + getName() + ".jpg";
+    }
+
 
     public String getName() {
         return mName;
