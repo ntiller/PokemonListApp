@@ -17,7 +17,7 @@ public class PokemonRecyclerViewAdapter extends RecyclerView.Adapter<PokemonRecy
     private final OnPokemonRowClickListener mListener;
 
     public interface OnPokemonRowClickListener {
-        void onPokemonRowClick(int position);
+        void onPokemonRowClick(Pokemon pokemon);
     }
 
     private final ArrayList<Pokemon> mPokemons;
@@ -54,7 +54,7 @@ public class PokemonRecyclerViewAdapter extends RecyclerView.Adapter<PokemonRecy
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onPokemonRowClick(holder.getAdapterPosition());
+                    mListener.onPokemonRowClick(mPokemons.get(holder.getAdapterPosition()));
                 }
             }
         });
