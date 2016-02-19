@@ -22,8 +22,9 @@ public class PokemonRecyclerViewAdapter extends RecyclerView.Adapter<PokemonRecy
 
     private final ArrayList<Pokemon> mPokemons;
 
-    public PokemonRecyclerViewAdapter(ArrayList<Pokemon> pokemons, OnPokemonRowClickListener listener) {
-        mPokemons = pokemons;
+    public PokemonRecyclerViewAdapter(Pokemon pokemon, OnPokemonRowClickListener listener) {
+        mPokemons = new ArrayList<>();
+        mPokemons.add(pokemon);
         mListener = listener;
     }
 
@@ -64,6 +65,11 @@ public class PokemonRecyclerViewAdapter extends RecyclerView.Adapter<PokemonRecy
     public void removePokemon(int position) {
         mPokemons.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void addPokemon(Pokemon pokemon) {
+        mPokemons.add(pokemon);
+        notifyItemInserted(mPokemons.size() - 1);
     }
 
     @Override

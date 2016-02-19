@@ -2,18 +2,23 @@ package edu.lclark.pokemonlistapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 
-public class PokemonRecyclerViewActivity extends AppCompatActivity implements PokemonRecyclerViewAdapter.OnPokemonRowClickListener {
+public class PokemonRecyclerViewActivity extends AppCompatActivity implements PokemonRecyclerViewAdapter.OnPokemonRowClickListener, View.OnClickListener {
 
 
     public static final int CODE_POKEMON = 0;
     private RecyclerView mRecyclerView;
+    private FloatingActionButton mFab;
+    private Pokedex mPokedex;
+    private PokemonRecyclerViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +28,13 @@ public class PokemonRecyclerViewActivity extends AppCompatActivity implements Po
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_pokemon_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Pokedex pokedex = new Pokedex();
-        PokemonRecyclerViewAdapter adapter = new PokemonRecyclerViewAdapter(pokedex.getPokemons(), this);
-        mRecyclerView.setAdapter(adapter);
+        mFab = (FloatingActionButton) findViewById(R.id.activity_pokemon_fab);
+        mFab.setOnClickListener(this);
+
+
+        mPokedex = new Pokedex();
+        mAdapter = new PokemonRecyclerViewAdapter(mPokedex.getPokemon(), this);
+        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -46,5 +55,12 @@ public class PokemonRecyclerViewActivity extends AppCompatActivity implements Po
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.activity_pokemon_fab) {
+            mAdapter.addPokemon(mPokedex.getPokemon());
+        }
     }
 }
