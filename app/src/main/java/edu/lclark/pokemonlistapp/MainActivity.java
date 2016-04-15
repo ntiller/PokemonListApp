@@ -1,8 +1,8 @@
 package edu.lclark.pokemonlistapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -37,9 +37,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        mAdapter.removePokemon(position);
-        Log.d(TAG, "onItemClick(): Removed pokemon at position: " + position);
+//        mAdapter.removePokemon(position);
+//        Log.d(TAG, "onItemClick(): Removed pokemon at position: " + position);
+//
+//        mAdapter.notifyDataSetChanged();
 
-        mAdapter.notifyDataSetChanged();
+        Intent intent = new Intent(this, PokemonDetailActivity.class);
+        intent.putExtra(PokemonDetailActivity.ARG_POKEMON, mAdapter.getItem(position));
+        startActivity(intent);
     }
 }
